@@ -55,12 +55,18 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+// Render provides PORT environment variable automatically
+const PORT = process.env.PORT || 5001;
+const HOST = process.env.HOST || "0.0.0.0"; // 0.0.0.0 allows external connections (needed for Render)
+
+app.listen(PORT, HOST, () => {
   console.log(
-    `\n🚀 Server running in ${process.env.NODE_ENV} mode on port ${PORT}`
+    `\n🚀 Server running in ${
+      process.env.NODE_ENV || "development"
+    } mode on ${HOST}:${PORT}`
   );
   console.log(`📍 API URL: http://localhost:${PORT}/api`);
   console.log(`🏥 Health check: http://localhost:${PORT}/api/health`);
-  console.log(`📦 Products API: http://localhost:${PORT}/api/products\n`);
+  console.log(`📦 Products API: http://localhost:${PORT}/api/products`);
+  console.log(`🔐 Auth API: http://localhost:${PORT}/api/auth\n`);
 });

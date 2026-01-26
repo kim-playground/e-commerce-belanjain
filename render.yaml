@@ -1,0 +1,8 @@
+# Render Deployment Configuration
+# This file is used by Render to build and start your service
+
+# Build command
+buildCommand = "cd backend && npm install"
+
+# Start command
+startCommand = "cd backend && npm start"

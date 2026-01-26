@@ -417,23 +417,61 @@ curl -X POST http://localhost:5000/api/products \
 
 ## 🚀 Deployment
 
-### Frontend (Vercel/Netlify)
+**📖 Complete Deployment Guide Available!**
 
-1. Build frontend:
+See **[DEPLOYMENT_RENDER.md](DEPLOYMENT_RENDER.md)** for comprehensive step-by-step deployment instructions including:
+
+- MongoDB Atlas setup
+- Render backend deployment
+- Netlify/Vercel frontend deployment
+- Environment variable configuration
+- CORS setup
+- Troubleshooting guide
+
+### Quick Deployment Summary
+
+#### Backend (Render) - **Optimized for Dynamic Ports** ✅
+
+1. **Configure Environment Variables in Render:**
+
+   ```
+   MONGODB_URI=mongodb+srv://user:password@cluster.mongodb.net/belanjain
+   NODE_ENV=production
+   JWT_SECRET=your-super-secret-random-string
+   FRONTEND_URL=https://your-frontend.netlify.app
+   ```
+
+   Note: `PORT` is automatically provided by Render - don't set it manually!
+
+2. **Build & Start Commands:**
+
+   ```
+   Build: cd backend && npm install
+   Start: cd backend && npm start
+   ```
+
+3. **Server Configuration:**
+   - ✅ Automatically binds to `0.0.0.0` for cloud deployment
+   - ✅ Uses `process.env.PORT` for dynamic port assignment
+   - ✅ Fallback to port 5001 for local development
+
+#### Frontend (Netlify/Vercel)
+
+1. **Add Environment Variable:**
+
+   ```
+   VITE_API_URL=https://your-backend.onrender.com/api
+   ```
+
+2. **Build Command:**
 
    ```bash
    npm run build
    ```
 
-2. Deploy `dist/` folder
+3. **Publish Directory:** `dist/`
 
-### Backend (Railway/Render/Heroku)
-
-1. Set environment variables
-2. Deploy from `backend/` folder
-3. Update frontend API URL
-
-### Database (MongoDB Atlas)
+#### Database (MongoDB Atlas)
 
 Already cloud-hosted if using Atlas!
 
@@ -476,6 +514,8 @@ lsof -ti:5000 | xargs kill -9
 ## 📚 Documentation
 
 - **[Authentication & Monitoring Guide](AUTHENTICATION_MONITORING.md)** ⭐ NEW
+- **[Render Deployment Guide](DEPLOYMENT_RENDER.md)** 🚀 NEW
+- **[Deployment Ready Status](RENDER_READY.md)** ✅ NEW
 - [Backend API Documentation](backend/README.md)
 - [MongoDB Setup Guide](backend/MONGODB_SETUP.md)
 - [Database Setup](DATABASE_SETUP.md)

@@ -36,7 +36,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
 
-  const API_URL = "http://localhost:5001/api";
+  // Support both development and production environments
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5001/api";
 
   // Check for existing token on mount
   useEffect(() => {
