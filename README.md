@@ -41,6 +41,12 @@ Platform e-commerce modern yang dibangun dengan **React** (frontend) dan **Node.
 
 ### User Features
 
+- ✅ **Authentication & Authorization (JWT)**
+  - User registration with email validation
+  - Secure login with password encryption (bcrypt)
+  - JWT token storage in localStorage
+  - User profile in header
+  - Protected routes support
 - ✅ Browse products dengan filtering & sorting
 - ✅ Product detail dengan reviews & ratings
 - ✅ Shopping cart dengan localStorage persistence
@@ -56,13 +62,24 @@ Platform e-commerce modern yang dibangun dengan **React** (frontend) dan **Node.
 - ✅ Order management
 - ✅ Dashboard analytics
 
+### Monitoring & Analytics
+
+- ✅ **Google Analytics 4 Integration**
+  - Automatic page view tracking
+  - E-commerce event tracking (add to cart, purchases)
+  - User authentication tracking (login, sign up)
+  - Custom event tracking
+  - Search tracking
+
 ### Technical Features
 
 - ✅ RESTful API
+- ✅ **JWT Authentication** dengan bcrypt password hashing
 - ✅ MongoDB database dengan Mongoose ODM
 - ✅ TypeScript untuk type safety
 - ✅ Modern UI dengan shadcn/ui components
 - ✅ Optimized performance dengan React Query caching
+- ✅ **Google Analytics monitoring** untuk user activity
 
 ---
 
@@ -142,10 +159,13 @@ e-commerce-blueprint/
    # atau MongoDB Atlas:
    # MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/belanjain
 
-   PORT=5000
+   PORT=5001
    NODE_ENV=development
    FRONTEND_URL=http://localhost:8080
+   JWT_SECRET=belanjain-secret-key-change-this-in-production
    ```
+
+   ⚠️ **IMPORTANT**: Change `JWT_SECRET` in production!
 
 6. **Seed Database**
 
@@ -228,6 +248,48 @@ http://localhost:5000/api
 
 ### Endpoints
 
+#### Authentication (NEW 🔐)
+
+| Method | Endpoint         | Description           | Auth Required |
+| ------ | ---------------- | --------------------- | ------------- |
+| POST   | `/auth/register` | Register new user     | No            |
+| POST   | `/auth/login`    | Login user            | No            |
+| GET    | `/auth/me`       | Get current user info | Yes           |
+| POST   | `/auth/logout`   | Logout user           | Yes           |
+
+**Example Register:**
+
+```bash
+POST /api/auth/register
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "password123"
+}
+```
+
+**Example Login:**
+
+```bash
+POST /api/auth/login
+Content-Type: application/json
+
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+```
+
+**Protected Routes:**
+Include JWT token in Authorization header:
+
+```bash
+GET /api/auth/me
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+```
+
 #### Products
 
 | Method | Endpoint               | Description        |
@@ -274,6 +336,14 @@ GET /api/products?category=Electronics&sort=price_asc
   "message": "Error message"
 }
 ```
+
+### Google Analytics Setup 📊
+
+1. Get your Google Analytics 4 Measurement ID from [Google Analytics](https://analytics.google.com/)
+2. Open `src/App.tsx`
+3. Replace `G-XXXXXXXXXX` with your actual Measurement ID
+
+For detailed instructions, see [AUTHENTICATION_MONITORING.md](AUTHENTICATION_MONITORING.md)
 
 For detailed API documentation, see [backend/README.md](backend/README.md)
 
@@ -405,6 +475,7 @@ lsof -ti:5000 | xargs kill -9
 
 ## 📚 Documentation
 
+- **[Authentication & Monitoring Guide](AUTHENTICATION_MONITORING.md)** ⭐ NEW
 - [Backend API Documentation](backend/README.md)
 - [MongoDB Setup Guide](backend/MONGODB_SETUP.md)
 - [Database Setup](DATABASE_SETUP.md)
@@ -413,26 +484,39 @@ lsof -ti:5000 | xargs kill -9
 
 ## 🔐 Security Notes
 
-⚠️ **Current Implementation (Development):**
+✅ **Current Implementation:**
 
-- No authentication
-- All API endpoints are public
-- CORS enabled for localhost
+- ✅ JWT authentication with bcrypt password hashing
+- ✅ Protected routes with middleware
+- ✅ Token-based authorization
+- ✅ CORS enabled for localhost
+- ✅ User activity monitoring with Google Analytics
+
+⚠️ **Development Mode:**
+
+- Some API endpoints are still public
+- JWT_SECRET uses development value
 
 🔒 **Production Recommendations:**
 
-- Add JWT authentication
-- Implement role-based access control
-- Add rate limiting
-- Enable HTTPS
-- Validate and sanitize all inputs
-- Add request logging and monitoring
+- ✅ Change JWT_SECRET to a strong, random value
+- [ ] Implement role-based access control for all admin endpoints
+- [ ] Add rate limiting for authentication endpoints
+- [ ] Enable HTTPS only
+- [ ] Validate and sanitize all inputs
+- [ ] Add request logging and monitoring
+- [ ] Implement refresh tokens
+- [ ] Add email verification for registration
+- [ ] Set up proper CORS for production domain
+
+See [AUTHENTICATION_MONITORING.md](AUTHENTICATION_MONITORING.md) for detailed security best practices.
 
 ---
 
 ## 🎯 Future Enhancements
 
-- [ ] User authentication & authorization
+- [x] User authentication & authorization (JWT) ✅
+- [x] User activity monitoring (Google Analytics) ✅
 - [ ] Payment gateway integration
 - [ ] Email notifications
 - [ ] Product reviews & ratings (user-generated)
@@ -442,6 +526,10 @@ lsof -ti:5000 | xargs kill -9
 - [ ] Multi-language support
 - [ ] Dark mode
 - [ ] PWA support
+- [ ] Password reset functionality
+- [ ] Email verification
+- [ ] OAuth integration (Google, Facebook)
+- [ ] Two-factor authentication
 
 ---
 
