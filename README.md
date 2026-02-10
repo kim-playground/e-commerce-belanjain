@@ -419,57 +419,77 @@ curl -X POST http://localhost:5000/api/products \
 
 **📖 Complete Deployment Guide Available!**
 
-See **[DEPLOYMENT_RENDER.md](DEPLOYMENT_RENDER.md)** for comprehensive step-by-step deployment instructions including:
+See **[DEPLOYMENT_AZURE.md](DEPLOYMENT_AZURE.md)** for comprehensive step-by-step deployment instructions.
 
-- MongoDB Atlas setup
-- Render backend deployment
-- Netlify/Vercel frontend deployment
-- Environment variable configuration
-- CORS setup
-- Troubleshooting guide
+**⚡ Quick Start:** [AZURE_QUICKSTART.md](AZURE_QUICKSTART.md) - Deploy in 15 minutes!
+
+### Why Azure?
+
+- ✅ **Free Tier:** $200 credit + 12 months free services
+- ✅ **Global Scale:** Microsoft's global infrastructure
+- ✅ **Integration:** Seamless with GitHub Actions
+- ✅ **Monitoring:** Built-in Application Insights
+- ✅ **Support:** Enterprise-grade support available
 
 ### Quick Deployment Summary
 
-#### Backend (Render) - **Optimized for Dynamic Ports** ✅
+#### Backend (Azure App Service) ✅
 
-1. **Configure Environment Variables in Render:**
+1. **Create Web App:**
 
    ```
-   MONGODB_URI=mongodb+srv://user:password@cluster.mongodb.net/belanjain
+   Runtime: Node 18 LTS
+   OS: Linux
+   Region: Southeast Asia
+   Plan: F1 (Free) or B1 (Production)
+   ```
+
+2. **Configure Environment Variables:**
+
+   ```
+   MONGODB_URI=mongodb+srv://...
    NODE_ENV=production
-   JWT_SECRET=your-super-secret-random-string
-   FRONTEND_URL=https://your-frontend.netlify.app
+   JWT_SECRET=strong-random-string
+   FRONTEND_URL=https://your-frontend.azurestaticapps.net
    ```
 
-   Note: `PORT` is automatically provided by Render - don't set it manually!
-
-2. **Build & Start Commands:**
-
-   ```
-   Build: cd backend && npm install
-   Start: cd backend && npm start
-   ```
-
-3. **Server Configuration:**
-   - ✅ Automatically binds to `0.0.0.0` for cloud deployment
-   - ✅ Uses `process.env.PORT` for dynamic port assignment
-   - ✅ Fallback to port 5001 for local development
-
-#### Frontend (Netlify/Vercel)
-
-1. **Add Environment Variable:**
-
-   ```
-   VITE_API_URL=https://your-backend.onrender.com/api
-   ```
-
-2. **Build Command:**
+3. **Set Startup Command:**
 
    ```bash
-   npm run build
+   cd backend && npm install && npm start
    ```
 
-3. **Publish Directory:** `dist/`
+4. **Deploy from GitHub:**
+   - Connect repository
+   - Enable GitHub Actions
+   - Auto-deploy on push ✅
+
+#### Frontend (Azure Static Web Apps) ✅
+
+1. **Create Static Web App:**
+
+   ```
+   Plan: Free
+   Build preset: Custom
+   Output location: dist
+   ```
+
+2. **Environment Variable:**
+
+   ```
+   VITE_API_URL=https://your-backend.azurewebsites.net/api
+   ```
+
+3. **Automatic Deployment:**
+   - GitHub Actions workflow created automatically
+   - Deploys on every push to main
+
+#### Server Configuration (Already Optimized) ✅
+
+- ✅ Binds to `0.0.0.0` (cloud-compatible)
+- ✅ Uses `process.env.PORT` (dynamic port support)
+- ✅ Fallback to port 5001 for local development
+- ✅ Works with Azure, Render, Heroku, and other platforms
 
 #### Database (MongoDB Atlas)
 
@@ -513,12 +533,12 @@ lsof -ti:5000 | xargs kill -9
 
 ## 📚 Documentation
 
-- **[Authentication & Monitoring Guide](AUTHENTICATION_MONITORING.md)** ⭐ NEW
-- **[Render Deployment Guide](DEPLOYMENT_RENDER.md)** 🚀 NEW
-- **[Deployment Ready Status](RENDER_READY.md)** ✅ NEW
+- **[Azure Deployment Guide](DEPLOYMENT_AZURE.md)** 🚀 **RECOMMENDED**
+- **[Azure Quick Start](AZURE_QUICKSTART.md)** ⚡ Deploy in 15 minutes!
+- **[Authentication & Monitoring Guide](AUTHENTICATION_MONITORING.md)** 🔐
 - [Backend API Documentation](backend/README.md)
 - [MongoDB Setup Guide](backend/MONGODB_SETUP.md)
-- [Database Setup](DATABASE_SETUP.md)
+- [Alternative: Render Deployment](DEPLOYMENT_RENDER_OLD.md) (Legacy)
 
 ---
 
