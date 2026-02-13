@@ -82,12 +82,14 @@ app.use((err, req, res, next) => {
 // Start Server (Azure Ready)
 // =========================
 const PORT = process.env.PORT || 8080;
+const HOST = process.env.WEBSITE_HOSTNAME || "localhost";
 
 app.listen(PORT, () => {
   console.log("====================================");
   console.log(`🚀 Server running in ${process.env.NODE_ENV || "development"} mode`);
-  console.log(`🌐 App URL : http://localhost:${PORT}`);
-  console.log(`📡 API URL : /api`);
-  console.log(`🏥 Health  : /api/health`);
+  console.log(`🌐 App URL : https://${HOST}`);
+  console.log(`📡 API URL : https://${HOST}/api`);
+  console.log(`🏥 Health  : https://${HOST}/api/health`);
   console.log("====================================");
 });
+
