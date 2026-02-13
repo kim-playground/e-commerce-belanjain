@@ -147,7 +147,6 @@ const seedDatabase = async () => {
     process.exit(0);
   } catch (error) {
     console.error("❌ Error seeding database:", error.message);
-    process.exit(1);
   }
 };
 
