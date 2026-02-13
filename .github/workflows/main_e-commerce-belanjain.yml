@@ -6,7 +6,7 @@ on:
 
 env:
   AZURE_WEBAPP_NAME: e-commerce-belanjain
-  AZURE_WEBAPP_PACKAGE_PATH: "./backend"
+  AZURE_WEBAPP_PACKAGE_PATH: "."
   NODE_VERSION: "18.x"
 
 jobs:
@@ -14,19 +14,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout repo
       - uses: actions/checkout@v4
 
+      # 2️⃣ Setup Node
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
 
+      # 3️⃣ Inject ENV untuk FRONTEND (🔥 ini kunci)
+      - name: ⚙️ Create frontend env
+        run: |
+          echo "VITE_API_URL=https://e-commerce-belanjain-gad0gma7eybsh6af.indonesiacentral-01.azurewebsites.net/api" >> .env
+          echo "VITE_GA_MEASUREMENT_ID=G-1R9PBSVPM8" >> .env
+
+      # 4️⃣ Install frontend deps (root)
+      - name: 📦 Install frontend deps
+        run: npm ci
+
+      # 5️⃣ Build frontend (Vite → dist)
+      - name: 🏗️ Build frontend
+        run: npm run build
+
+      # 6️⃣ Install backend deps
       - name: 📦 Install backend deps
         run: |
           cd backend
           npm ci
 
-      # ✅ DEPLOY TANPA AZURE LOGIN
+      # 7️⃣ Deploy ke Azure (include frontend + backend)
       - name: 🚀 Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
