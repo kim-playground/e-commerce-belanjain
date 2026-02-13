@@ -64,7 +64,7 @@ export function Header() {
                   "relative font-body text-sm font-medium transition-colors hover:text-foreground",
                   location.pathname === link.href
                     ? "text-foreground"
-                    : "text-muted-foreground"
+                    : "text-muted-foreground",
                 )}
               >
                 {link.label}
@@ -122,7 +122,7 @@ export function Header() {
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="outline"
-                    className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700 border-none"
+                    className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 border-none"
                   >
                     <User className="h-4 w-4" />
                     <span className="hidden sm:inline">{user?.name}</span>
@@ -153,7 +153,7 @@ export function Header() {
             ) : (
               <Button
                 onClick={() => navigate("/login")}
-                className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
               >
                 <LogIn className="mr-2 h-4 w-4" />
                 Login
