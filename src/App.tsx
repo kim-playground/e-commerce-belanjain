@@ -22,7 +22,7 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const GA_MEASUREMENT_ID = "G-XXXXXXXXXX"; 
+const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID;
 
 const AppContent = () => {
   usePageTracking(); // Track page views automatically
